@@ -53,7 +53,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Page Include="views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -61,7 +61,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -92,6 +92,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="helpers\" />
+    <Folder Include="models\" />
+    <Folder Include="viewmodels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\icones\appbar.copy.png" />
+    <Resource Include="resources\icones\appbar.cut.png" />
+    <Resource Include="resources\icones\appbar.paste.png" />
+    <Resource Include="resources\icones\appbar.redo.png" />
+    <Resource Include="resources\icones\appbar.save.png" />
+    <Resource Include="resources\icones\appbar.saveall.png" />
+    <Resource Include="resources\icones\appbar.tools.png" />
+    <Resource Include="resources\icones\appbar.undo.png" />
+    <Resource Include="resources\icones\Home.png" />
+    <Resource Include="resources\icones\left34.png" />
+    <Resource Include="resources\icones\qmark.png" />
+    <Resource Include="resources\icones\right32.png" />
+    <Resource Include="resources\icones\squares6.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

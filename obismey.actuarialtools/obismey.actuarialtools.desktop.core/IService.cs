@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace obismey.actuarialtools.desktop.core
 {
-    public class Class1
+    public interface IService
     {
+        void Reset();
     }
 }
