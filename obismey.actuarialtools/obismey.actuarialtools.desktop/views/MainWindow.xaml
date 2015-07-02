@@ -1,8 +1,60 @@
 ﻿<Window x:Class="obismey.actuarialtools.desktop.views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="400" Width="525">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Background="White"
+        xmlns:vm="clr-namespace:obismey.actuarialtools.desktop.viewmodels"
+        xmlns:helpers="clr-namespace:obismey.actuarialtools.desktop.helpers" 
+        Title="MainWindow" Height="400" Width="600">
+    
+    <Window.DataContext>
+        <vm:MainWindow />
+    </Window.DataContext>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{Binding Source={x:Static helpers:DynamicSettings.Instance}, Path=ToolBarTopHeight, Mode=TwoWay, FallbackValue=Auto}" MaxHeight="150" MinHeight="50"/>
+            <RowDefinition Height="2"/>
+            <RowDefinition Height="{Binding Source={x:Static helpers:DynamicSettings.Instance}, Path=ToolBarBottomHeight, Mode=TwoWay, FallbackValue=*}"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{Binding Source={x:Static helpers:DynamicSettings.Instance}, Path=NavigationBarWidth, Mode=TwoWay, FallbackValue=Auto}" MinWidth="15"/>
+            <ColumnDefinition Width="2"/>
+            <ColumnDefinition Width="{Binding Source={x:Static helpers:DynamicSettings.Instance}, Path=FrameWidth, Mode=TwoWay, FallbackValue=*}"/>
+        </Grid.ColumnDefinitions>
+        <GridSplitter Background="LightGray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Grid.Row="1" Grid.ColumnSpan="3"/>
+        <GridSplitter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightGray" Grid.Column="1"  Grid.RowSpan="3"/>
+
+
+        <Grid Grid.Row="2">
+            <ContentControl />
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="2">
+            <Frame Source="{Binding NavigationSource}" />
+        </Grid>
+        <Grid Grid.ColumnSpan="3">
+            <ListBox BorderThickness="0" Background="LightGray" ItemsSource="{Binding ToolBarItems}" >
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,10,0,10" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Button  Style="{DynamicResource ToolBarButtonStyle}" Margin="0,0,20,0" Command="{Binding Mode=OneWay}">
+                                        <Button.Background>
+                                            <ImageBrush ImageSource="{Binding Icon}" />
+                                        </Button.Background>
+                                    </Button>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                
+            </ListBox>            
+        </Grid>
+
+             
     </Grid>
 </Window>

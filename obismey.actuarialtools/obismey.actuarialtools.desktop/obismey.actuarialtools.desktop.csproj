@@ -61,6 +61,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="helpers\DynamicSettings.cs" />
+    <Compile Include="viewmodels\MainWindow.cs" />
     <Compile Include="views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -94,9 +96,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="helpers\" />
     <Folder Include="models\" />
-    <Folder Include="viewmodels\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="resources\icones\appbar.copy.png" />
@@ -112,6 +112,12 @@
     <Resource Include="resources\icones\qmark.png" />
     <Resource Include="resources\icones\right32.png" />
     <Resource Include="resources\icones\squares6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\obismey.actuarialtools.desktop.core\obismey.actuarialtools.desktop.core.csproj">
+      <Project>{b7f60a91-b0df-4c2f-a844-d5123efdfec3}</Project>
+      <Name>obismey.actuarialtools.desktop.core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
