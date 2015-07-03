@@ -11,7 +11,7 @@ namespace obismey.actuarialtools.desktop.core.ui
     {
         private string _Caption = "";
         private string _Id = "";
-        private Action _OnClick;
+        private Action _Method;
         private bool _IsEnabled = true;
         private string _Category = "";
         private string _Icon = "";
@@ -42,9 +42,9 @@ namespace obismey.actuarialtools.desktop.core.ui
         public UICommand(string Caption, Action OnClick)
         {
             this._Caption = Caption;
-            this._OnClick = OnClick;
+            this._Method = OnClick;
         }
-
+               
         public string Id { get { return this._Id; }}
 
         /// <summary>
@@ -66,16 +66,16 @@ namespace obismey.actuarialtools.desktop.core.ui
         /// <summary>
         /// 
         /// </summary>
-        public virtual Action OnClick
+        public virtual Action Method
         {
             get
             {
-                return _OnClick;
+                return _Method;
             }
             set
             {
-                _OnClick = value;
-                OnPropertyChanged("OnClick");
+                _Method = value;
+                OnPropertyChanged("Method");
             }
         }
 
@@ -151,8 +151,8 @@ namespace obismey.actuarialtools.desktop.core.ui
 
         void System.Windows.Input.ICommand.Execute(object parameter)
         {
-            if (this.OnClick == null) return;
-            this.OnClick();
+            if (this.Method == null) return;
+            this.Method();
         }
     }
 }

@@ -61,6 +61,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="helpers\DefaultNavigationPane.cs" />
     <Compile Include="helpers\DynamicSettings.cs" />
     <Compile Include="viewmodels\MainWindow.cs" />
     <Compile Include="views\MainWindow.xaml.cs">
@@ -118,6 +119,11 @@
       <Project>{b7f60a91-b0df-4c2f-a844-d5123efdfec3}</Project>
       <Name>obismey.actuarialtools.desktop.core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Plugins\Keep This Folder Empty.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
