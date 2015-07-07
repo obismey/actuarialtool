@@ -1,0 +1,150 @@
+﻿<Page x:Class="obismey.actuarialtools.plugins.reserving.views.DataImportPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+	Title="DataImportPage">
+
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+        <Style TargetType="RadioButton" x:Key="LargeButtonRadioButtonStyle">
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border Name="Border" Padding="10" CornerRadius="0"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter  HorizontalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="Black" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="FontWeight" Value="Bold" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="RenderTransform" >
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.95" ScaleY="0.95" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="BorderThickness" Value="2" />
+                                <Setter Property="CornerRadius" Value="5" TargetName="Border" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+    </Page.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="2" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel  VerticalAlignment="Center">
+            <UniformGrid  Columns="4"  Margin="10" >
+                <RadioButton Name="CSVRadioButton" Content="CSV/TXT" GroupName="DataSourceRadioButtonGroup" Style="{StaticResource LargeButtonRadioButtonStyle}" Unchecked="SourceTypeRadioButton_Unchecked"  Checked="SourceTypeRadioButton_Checked"/>
+                <RadioButton Name="EXCELRadioButton" Content="EXCEL" GroupName="DataSourceRadioButtonGroup" Style="{StaticResource LargeButtonRadioButtonStyle}"  Unchecked="SourceTypeRadioButton_Unchecked" Checked="SourceTypeRadioButton_Checked" />
+                <RadioButton Name="SASRadioButton" Content="SAS" GroupName="DataSourceRadioButtonGroup"  Style="{StaticResource LargeButtonRadioButtonStyle}"  Unchecked="SourceTypeRadioButton_Unchecked" Checked="SourceTypeRadioButton_Checked"/>
+                <RadioButton Name="SQLRadioButton" Content="SQL" GroupName="DataSourceRadioButtonGroup"  Style="{StaticResource LargeButtonRadioButtonStyle}"  Unchecked="SourceTypeRadioButton_Unchecked" Checked="SourceTypeRadioButton_Checked"/>
+            </UniformGrid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Border CornerRadius="5" Margin="10" BorderThickness="1" BorderBrush="Black" >
+                    <TextBlock VerticalAlignment="Center" Margin="1" Name="FileTextBlock" />
+                </Border>
+                <Button Grid.Column="1" Content="Importer" Padding="5" Margin="10"  Name="ImporterButton" Click="ImporterButton_Click"/>
+            </Grid>
+        </StackPanel>
+
+        <GridSplitter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" />
+
+        <UniformGrid Grid.Row="2" Columns="2"  Margin="10" >
+            <RadioButton IsChecked="True" Name="DataPreviewRadioButton" Content="Prévisualisation des données" GroupName="DataSourcePreviewMappingRadioButtonGroup" Style="{StaticResource LargeButtonRadioButtonStyle}" Unchecked="SourceTypeRadioButton_Unchecked" Checked="SourceTypeRadioButton_Checked"/>
+            <RadioButton Name="DataMappingRadioButton" Content="Mappage des données" GroupName="DataSourcePreviewMappingRadioButtonGroup" Style="{StaticResource LargeButtonRadioButtonStyle}"  Unchecked="SourceTypeRadioButton_Unchecked" Checked="SourceTypeRadioButton_Checked" />
+        </UniformGrid>
+
+        <Grid Grid.Row="3"
+              Visibility="{Binding ElementName=DataPreviewRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+           
+            <ListView  Name="PreviewListView"  >
+                <ListView.View>
+                    <GridView AllowsColumnReorder="False" >
+                        <GridView.ColumnHeaderContainerStyle>
+                            <Style TargetType="GridViewColumnHeader">
+                                <EventSetter Event="Click" Handler="PreviewListViewColumnHeaderClick" />
+                            </Style>
+                        </GridView.ColumnHeaderContainerStyle>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="2">
+                <Button Content=" &lt;&lt; " Background="White" Margin="1" Padding="1" FontWeight="Bold" Name="BeginButton" />
+                <Button Content=" &lt; " Background="White" Margin="1" Padding="1" FontWeight="Bold" Name="PreviousButton"   />
+                <ComboBox Background="White" Margin="1" Padding="2" Name="PageComboBox"/>
+                <Button Content=" > " Background="White" Margin="1" Padding="1"  FontWeight="Bold" Name="NextButton" />
+                <Button Content=" >> " Background="White" Margin="1" Padding="1"  FontWeight="Bold" Name="EndButton"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid  Grid.Row="3"
+               Visibility="{Binding ElementName=DataMappingRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <StackPanel  Orientation="Horizontal">
+                    <Button Margin="5" Padding="5" Background="White" Content="Enregistrer le modele" Name="SaveMappingModelButton" Click="SaveMappingModelButton_Click" />
+                    <Button Margin="5" Padding="5" Background="White" Content="Charger un modele" Name="LoadMappingModelButton" Click="LoadMappingModelButton_Click"/>
+                    <Button Margin="5" Padding="5" Background="White" Content="Valider les modifications" Name="ValidateChangesMappingModelButton" Click="ValidateChangesMappingModelButton_Click"/>
+                </StackPanel>
+                <DataGrid Grid.Row="1" 
+                  Name="DataModelEditingDataGrid" 
+                  SelectionMode="Extended" 
+                  SelectionUnit="FullRow"
+                  ColumnWidth="*" 
+                  RowHeight="30" 
+                  AlternatingRowBackground="LightGray"  
+                  AutoGenerateColumns="False" 
+                  CanUserReorderColumns="False" 
+                  CanUserSortColumns="False" 
+                  CanUserAddRows="True"
+                  CanUserDeleteRows="True" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Colonne du Modele"  Binding="{Binding Name}"/>
+                        <DataGridComboBoxColumn x:Name="UsageDataGridComboBoxColumn"  Header="Utilisation" SelectedItemBinding="{Binding Path=Usage}" />
+                        <DataGridComboBoxColumn x:Name="ColonneSourceDataGridComboBoxColumn" Header="Colonne Source" DisplayMemberPath="ColumnName" SelectedItemBinding="{Binding SourceColumn}"  />
+                        <DataGridTextColumn  IsReadOnly="True" Binding="{Binding SourceColumn.DataType}" />
+                        <DataGridComboBoxColumn x:Name="TypeDataGridComboBoxColumn"  Header="Type"  SelectedItemBinding="{Binding Type}" />
+                        <DataGridComboBoxColumn x:Name="ConvertisseurDataGridComboBoxColumn" Header="Convertisseur" SelectedItemBinding="{Binding Path=ConverterType}" />
+                        <DataGridTextColumn Header="Formule"  Binding="{Binding Path=Formula, Mode=TwoWay}"/>
+                        <DataGridTextColumn Header="Priorite"  Binding="{Binding Path=Priority, Mode=TwoWay}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace obismey.actuarialtools.desktop.core
+namespace obismey.actuarialtools.plugins.reserving.core
 {
-    public interface IService : IDisposable 
+    public interface ISegment
     {
-        void Reset();
     }
-
-
 }
+ 

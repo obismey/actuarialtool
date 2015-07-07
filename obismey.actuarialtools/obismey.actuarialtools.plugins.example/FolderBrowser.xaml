@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="obismey.actuarialtools.plugins.example.FolderBrowser"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Frame Source="/obismey.actuarialtools.plugins.example;component/FileListPage.xaml" />
+        <TreeView ItemsSource="{Binding Mode=OneWay}" SelectedItemChanged="FolderTreeView_SelectedItemChanged" >
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Folders, Mode=OneWay}">
+                        <TextBlock Text="{Binding Name}">
+                            <TextBlock.ContextMenu>
+                                <ContextMenu >
+                                    <MenuItem Header="Ajouter aux favoris" Command="{Binding AddToFavorite}" />
+                                    <MenuItem Header="Supprimer des favoris" Command="{Binding RemoveFromFavorite}" />
+                                </ContextMenu>
+                            </TextBlock.ContextMenu>
+                        </TextBlock>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+    </Grid>
+</UserControl>

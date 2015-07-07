@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Background="White"
         xmlns:vm="clr-namespace:obismey.actuarialtools.desktop.viewmodels"
         xmlns:helpers="clr-namespace:obismey.actuarialtools.desktop.helpers" 
-        Title="MainWindow" Height="400" Width="600">
+        Title="MainWindow" Height="500" Width="800">
     
     <Window.DataContext>
         <vm:MainWindow />
@@ -25,12 +25,12 @@
 
         <Grid Grid.Row="2">
             <DockPanel>
-                <ComboBox SelectedIndex="0" DockPanel.Dock="Top" Background="White" Focusable="False" Margin="1" Padding="1" ItemsSource="{Binding NavigationPanes}" DisplayMemberPath="Catpion"/>
+                <ComboBox IsSynchronizedWithCurrentItem="True" SelectedIndex="0" DockPanel.Dock="Top" Background="White" Focusable="False" Margin="3" Padding="3" ItemsSource="{Binding NavigationPanes}" DisplayMemberPath="Caption"/>
                 <ContentControl Content="{Binding NavigationPanes/View, Mode=OneWay}" Margin="1" Padding="1" />
             </DockPanel>
         </Grid>
         <Grid Grid.Column="2" Grid.Row="2">
-            <Frame Source="{Binding NavigationSource}" />
+            <Frame Name="MainFrame" /><!--Source="{Binding NavigationSource}"-->
         </Grid>
         <Grid Grid.ColumnSpan="3">
             <ListBox BorderThickness="0" Background="LightGray" ItemsSource="{Binding ToolBarItems}" >

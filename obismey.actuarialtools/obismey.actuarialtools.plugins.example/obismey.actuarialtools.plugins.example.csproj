@@ -4,28 +4,26 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2B772378-A2AF-4474-8458-047BF8A06CCD}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{0CAB1E5D-11BC-4922-992B-9AF575ED7D63}</ProjectGuid>
+    <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>obismey.actuarialtools.desktop</RootNamespace>
-    <AssemblyName>obismey.actuarialtools.desktop</AssemblyName>
+    <RootNamespace>obismey.actuarialtools.plugins.example</RootNamespace>
+    <AssemblyName>obismey.actuarialtools.plugins.example</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\obismey.actuarialtools.desktop\bin\Debug\Plugins\ExamplePlugin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,12 +31,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>benin-drapeau-icone-9838.ico</ApplicationIcon>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,27 +47,15 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Page Include="views\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="ExamplePane.cs" />
+    <Compile Include="ExamplePlugin.cs" />
+    <Compile Include="ExampleService.cs" />
+    <Compile Include="FileListPage.xaml.cs">
+      <DependentUpon>FileListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="helpers\DefaultNavigationPane.cs" />
-    <Compile Include="helpers\DynamicSettings.cs" />
-    <Compile Include="viewmodels\MainWindow.cs" />
-    <Compile Include="views\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="FolderBrowser.xaml.cs">
+      <DependentUpon>FolderBrowser.xaml</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -98,40 +80,24 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="models\" />
-    <Folder Include="services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="resources\icones\appbar.copy.png" />
-    <Resource Include="resources\icones\appbar.cut.png" />
-    <Resource Include="resources\icones\appbar.paste.png" />
-    <Resource Include="resources\icones\appbar.redo.png" />
-    <Resource Include="resources\icones\appbar.save.png" />
-    <Resource Include="resources\icones\appbar.saveall.png" />
-    <Resource Include="resources\icones\appbar.tools.png" />
-    <Resource Include="resources\icones\appbar.undo.png" />
-    <Resource Include="resources\icones\Home.png" />
-    <Resource Include="resources\icones\left34.png" />
-    <Resource Include="resources\icones\qmark.png" />
-    <Resource Include="resources\icones\right32.png" />
-    <Resource Include="resources\icones\squares6.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\obismey.actuarialtools.core\obismey.actuarialtools.core.csproj">
+      <Project>{9554ccdc-5175-4643-b19f-03e7f1c21b48}</Project>
+      <Name>obismey.actuarialtools.core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\obismey.actuarialtools.desktop.core\obismey.actuarialtools.desktop.core.csproj">
       <Project>{b7f60a91-b0df-4c2f-a844-d5123efdfec3}</Project>
       <Name>obismey.actuarialtools.desktop.core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Plugins\Keep This Folder Empty.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="benin-drapeau-icone-9838.ico" />
+    <Page Include="FileListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FolderBrowser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
