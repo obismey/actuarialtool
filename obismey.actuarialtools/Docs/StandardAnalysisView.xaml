@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="StandardAnalysisView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:reo ="clr-namespace:unvell.ReoGrid;assembly=unvell.ReoGrid"  MinHeight="640" MinWidth="800"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+
+    <Grid Name="RootGrid"> 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <DockPanel>
+            <Button Name="UpdateButton" Content="Mettre à jour" DockPanel.Dock="Right" Background="White" VerticalAlignment="Center" Margin="2" Padding="2,4" Click="UpdateButton_Click" />
+         
+            <GroupBox DockPanel.Dock="Left" VerticalAlignment="Center" Header="Source de données" Margin="2" Padding="2" MinWidth="100" >
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox VerticalAlignment="Center" VerticalContentAlignment="Center"  Name="DataSourceComboBox" Margin="2" Padding="2" ItemsSource="{Binding}" DisplayMemberPath="DataSource.Name" Background="White" MinWidth="100" />
+                    <!--<ComboBox VerticalAlignment="Center" VerticalContentAlignment="Center"  Name="MinXComboBox" Margin="2" Padding="2" ItemsSource="{Binding}" DisplayMemberPath="DataSource.Name" Background="White" MinWidth="100" />
+                    <ComboBox VerticalAlignment="Center" VerticalContentAlignment="Center"  Name="MaxXComboBox" Margin="2" Padding="2" ItemsSource="{Binding}" DisplayMemberPath="DataSource.Name" Background="White" MinWidth="100" />
+                    <CheckBox VerticalAlignment="Center" VerticalContentAlignment="Center" Name="CumulCheckBox" Margin="2" Padding="2" Content="Cumul survenance anterieurs" Background="White" MinWidth="100" />-->
+                </StackPanel>
+            </GroupBox>
+            <ItemsControl  VerticalAlignment="Center" VerticalContentAlignment="Center"   Margin="2" Padding="2" ItemsSource="{Binding Path=SelectedItem, ElementName=DataSourceComboBox}" >
+
+                <ItemsControl.ItemTemplate >
+                    <DataTemplate>
+                        <GroupBox  Header="{Binding Caption}" Margin="2" Padding="2" MinWidth="100" >
+                            <!--<xctk:CheckComboBox Margin="2" Padding="2" ItemsSource="{Binding}" />-->
+                            <ComboBox Margin="2" Padding="2" ItemsSource="{Binding}" Background="White">
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="ComboBoxItem">
+                                        <Setter Property="IsSelected" Value="{Binding Selected}" />
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
+                            </ComboBox>
+                        </GroupBox>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate >
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        
+        </DockPanel>
+        
+        <reo:ReoGridControl Grid.Row="1" />
+        
+    </Grid>
+</UserControl>
