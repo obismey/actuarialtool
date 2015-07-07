@@ -8,5 +8,6 @@ namespace obismey.actuarialtools.plugins.reserving.core
 {
     public class Project
     {
+        public virtual IEnumerable<DataSource> DataSources { get; private set; }
     }
 }

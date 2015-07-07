@@ -126,7 +126,14 @@ namespace obismey.actuarialtools.desktop.viewmodels
 
             var mainwindow = App.Current.MainWindow as obismey.actuarialtools.desktop.views.MainWindow;
 
-            mainwindow.MainFrame.Navigate(dataOrUri);
+            if (dataOrUri is Uri)
+            {
+                mainwindow.MainFrame.Navigate((Uri)dataOrUri);
+            }
+            else
+            {
+                mainwindow.MainFrame.Navigate(dataOrUri);
+            }
 
             return true;
         }

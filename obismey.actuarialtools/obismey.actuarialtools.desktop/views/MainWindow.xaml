@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Background="White"
         xmlns:vm="clr-namespace:obismey.actuarialtools.desktop.viewmodels"
         xmlns:helpers="clr-namespace:obismey.actuarialtools.desktop.helpers" 
-        Title="MainWindow" Height="500" Width="800">
+        Title="MainWindow" Height="500" Width="800" WindowState="Maximized">
     
     <Window.DataContext>
         <vm:MainWindow />

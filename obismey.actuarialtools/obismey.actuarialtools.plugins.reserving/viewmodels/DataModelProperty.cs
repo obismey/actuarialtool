@@ -14,7 +14,7 @@ namespace obismey.actuarialtools.plugins.reserving.viewmodels
         private string _ConverterType;
         private string _Usage;
         private int _Priority;
-        private string _Formula;
+        private string _Formula="";
         private string _Type;
         private string _Name;
 

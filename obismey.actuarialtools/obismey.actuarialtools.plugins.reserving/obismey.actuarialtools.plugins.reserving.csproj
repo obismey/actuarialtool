@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -42,11 +43,16 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="unvell.ReoGrid">
+      <HintPath>..\References\ReoGrid-0.8.9.0-Alpha-Build\ReoGrid-0.8.9.0-Alpha-WPFRelease\unvell.ReoGrid.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="models\DataSourceImpl.cs" />
+    <Compile Include="models\ProjectImpl.cs" />
     <Compile Include="ReservingPlugin.cs" />
     <Compile Include="viewmodels\DataModel.cs" />
     <Compile Include="viewmodels\DataModelProperty.cs" />
@@ -60,6 +66,9 @@
     </Compile>
     <Compile Include="views\ProjectBrowserControl.xaml.cs">
       <DependentUpon>ProjectBrowserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\TrianglePage.xaml.cs">
+      <DependentUpon>TrianglePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -102,7 +111,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="helpers\" />
-    <Folder Include="models\" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="views\CsvOptionsWindow.xaml">
@@ -117,6 +125,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="views\TrianglePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="MSDASC">
@@ -125,7 +137,7 @@
       <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>True</Isolated>
+      <Isolated>False</Isolated>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>

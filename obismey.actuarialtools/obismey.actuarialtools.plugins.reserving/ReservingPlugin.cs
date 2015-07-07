@@ -17,9 +17,14 @@ namespace obismey.actuarialtools.plugins.reserving
 
         public ProjectTreeItem RootProjectTreeItem { get; private set; }
 
+        public models.ProjectImpl CurrentProject { get; private set; }
+
+
         public void Load()
         {
             Instance = this;
+
+            this.CurrentProject = new obismey.actuarialtools.plugins.reserving.models.ProjectImpl();
         }
 
         public void Reset(IShell Shell)
@@ -43,9 +48,10 @@ namespace obismey.actuarialtools.plugins.reserving
 
             this.datasourceProjectTreeItem = new ProjectTreeItem() { Caption = "Data Sources" };
             this.datasourceProjectTreeItem.ContextMenu.Add(new UICommand("New Data Source", NewDataSource));
-           
-            var triangleProjectTreeItem = new ProjectTreeItem() { Caption = "Triangles" };
-           
+
+            this.triangleProjectTreeItem = new ProjectTreeItem() { Caption = "Triangles" };
+            this.triangleProjectTreeItem.ContextMenu.Add(new UICommand("New Triangle", NewTriangle));
+
             var scriptProjectTreeItem = new ProjectTreeItem() { Caption = "Scripts" };          
             
             var analysisProjectTreeItem = new ProjectTreeItem() { Caption = "Analysis" };
@@ -78,7 +84,18 @@ namespace obismey.actuarialtools.plugins.reserving
 
 
         }
+        private void NewTriangle()
+        {
+            var newdatasourceProjectTreeItem = new ProjectTreeItem() { Caption = "Triangle" };
+            newdatasourceProjectTreeItem.ContextMenu.Add(new UICommand("Rename Triangle", () => RenameDataSource(newdatasourceProjectTreeItem)));
 
+
+            var page = new obismey.actuarialtools.plugins.reserving.views.TrianglePage();
+            newdatasourceProjectTreeItem.OnDoubleClick = () => this.UIService.Navigate(page, null);
+
+            this.triangleProjectTreeItem.Children.Add(newdatasourceProjectTreeItem);
+
+        }
         private void RenameDataSource(ProjectTreeItem newdatasourceProjectTreeItem)
         {
             var name = InputBox("Enter the name of the data source", newdatasourceProjectTreeItem.Caption);
@@ -110,6 +127,8 @@ namespace obismey.actuarialtools.plugins.reserving
 
         public event EventHandler<ServiceEventArgs> ServiceCreated;
         private ProjectTreeItem datasourceProjectTreeItem;
+        private ProjectTreeItem triangleProjectTreeItem;
+
 
     }
 }

@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataSource.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="ISegment.cs" />
     <Compile Include="ITable.cs" />

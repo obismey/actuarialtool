@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace obismey.actuarialtools.plugins.reserving.views
 {
@@ -33,7 +34,9 @@ namespace obismey.actuarialtools.plugins.reserving.views
 
 
         private DataModel CurrentModel;
-        
+        private System.Data.DataTable CurrentTable;
+        private models.DataSourceImpl DataSource;
+
 
         private void SourceTypeRadioButton_Checked(object sender, RoutedEventArgs e)
         {
@@ -47,12 +50,86 @@ namespace obismey.actuarialtools.plugins.reserving.views
 
         private void SaveMappingModelButton_Click(object sender, RoutedEventArgs e)
         {
+            var spd = new Microsoft.Win32.SaveFileDialog();
+            spd.Filter = "Fichiers de modele de donnes|*.mdl";
+            spd.AddExtension = true;
+            spd.DefaultExt = "mdl";
+            spd.InitialDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Modules\\ReservingPlugin\\Data");
 
+            if (CurrentModel == null)
+                return;
+
+            var spdShowDialog = spd.ShowDialog();
+
+            if (spdShowDialog == null) return;
+
+            if (spdShowDialog.Value)
+            {
+                Func<DataModelProperty, XElement> fun = (DataModelProperty p) =>
+                {
+                    var x = new XElement(
+                        "Property",
+                        new XAttribute("SourceColumn", p.SourceColumn == null ? null : p.SourceColumn.ColumnName),
+                        new XAttribute("Name", p.Name),
+                        new XAttribute("Type", p.Type),
+                        new XAttribute("Formula", p.Formula),
+                        new XAttribute("ConverterType", p.ConverterType),
+                        new XAttribute("Usage", p.Usage),
+                        new XAttribute("Priority", p.Priority));
+                    return x;
+                };
+
+
+                var xmodel = new XElement("Model", from p in this.CurrentModel select fun(p));
+
+                xmodel.Save(spd.FileName);
+            }
         }
 
         private void LoadMappingModelButton_Click(object sender, RoutedEventArgs e)
         {
+            var opd = new Microsoft.Win32.OpenFileDialog();
+            opd.Filter = "Fichiers de modele de donnes|*.mdl";
+            opd.InitialDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Modules\\ReservingPlugin\\Data");
 
+            if (CurrentTable == null)
+                return;
+            if (CurrentModel == null)
+                return;
+
+            var opdShowDialog = opd.ShowDialog();
+
+            if (opdShowDialog == null) return;
+
+            if (opdShowDialog.Value)
+            {
+                var xmodel = XElement.Load(opd.FileName);
+
+                Func<XElement, DataModelProperty> fun = (XElement x) =>
+                {
+                    var p = new DataModelProperty();
+                    p.Name = x.Attribute("Name").Value;
+                    p.Type = x.Attribute("Type").Value;
+                    p.Formula = x.Attribute("Formula").Value;
+                    p.ConverterType = x.Attribute("ConverterType").Value;
+                    p.Usage = x.Attribute("Usage").Value;
+                    p.Priority = int.Parse(x.Attribute("Priority").Value);
+                    if (CurrentTable != null)
+                    {
+                        if (CurrentTable.Columns.Contains(x.Attribute("SourceColumn").Value))
+                        {
+                            p.SourceColumn = CurrentTable.Columns[x.Attribute("SourceColumn").Value];
+                        }
+                    }
+                    return p;
+                };
+
+
+                foreach (var x in xmodel.Elements("Property"))
+                {
+                    CurrentModel.Add(fun(x));
+                }
+            }
         }
         private void PreviewListViewColumnHeaderClick(object sender, RoutedEventArgs e)
         {
@@ -94,7 +171,7 @@ namespace obismey.actuarialtools.plugins.reserving.views
         }
         private void LoadSQL()
         {
-            var prompt = new MSDASC.DataLinksClass();
+            var prompt = new MSDASC.DataLinks();
 
             try
             {
@@ -110,7 +187,10 @@ namespace obismey.actuarialtools.plugins.reserving.views
             var opd = new Microsoft.Win32.OpenFileDialog();
             opd.Filter = "Fichiers SAS|*.sas7bdat";
 
-            if (opd.ShowDialog() != null)
+            var opdShowDialog = opd.ShowDialog();
+            if (opdShowDialog == null) return;
+
+            if (opdShowDialog.Value)
             {
                 var conbuilder = new System.Data.OleDb.OleDbConnectionStringBuilder();
                 conbuilder.Provider = "sas.LocalProvider";
@@ -130,6 +210,7 @@ namespace obismey.actuarialtools.plugins.reserving.views
                 CSVRadioButton.IsEnabled = false;
 
                 this.CurrentModel = new DataModel(dataTable);
+                this.CurrentTable = dataTable;
 
                 foreach (System.Data.DataColumn c in dataTable.Columns)
                 {
@@ -155,6 +236,19 @@ namespace obismey.actuarialtools.plugins.reserving.views
 
                 this.FileTextBlock.Text = opd.FileName;
 
+                this.DataSource = this.DataSource== null ?
+                    new obismey.actuarialtools.plugins.reserving.models.DataSourceImpl() :
+                    this.DataSource;
+
+                this.DataSource.Model = this.CurrentModel;
+
+                this.DataSource.Table = this.CurrentTable;
+
+
+                if (!ReservingPlugin.Instance.CurrentProject.ObservableDataSources.Contains(this.DataSource))
+                {
+                    ReservingPlugin.Instance.CurrentProject.ObservableDataSources.Add(this.DataSource);
+                }
 
             }
         }
