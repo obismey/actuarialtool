@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{203F6DE2-C
 		Docs\Plan_Action.xlsm = Docs\Plan_Action.xlsm
 		Docs\RChainLadder-01.pdf = Docs\RChainLadder-01.pdf
 		Docs\RChainLadder-02.pdf = Docs\RChainLadder-02.pdf
+		Docs\StandardAnalysisView.xaml = Docs\StandardAnalysisView.xaml
+		Docs\StandardAnalysisView.xaml.vb = Docs\StandardAnalysisView.xaml.vb
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{4C7ADA79-510C-4252-A774-98F3ABFED46D}"

@@ -18,7 +18,7 @@
 
             <StackPanel Orientation="Horizontal">
                 <GroupBox DockPanel.Dock="Left" VerticalAlignment="Center" Header="Source de données" Margin="2" Padding="2" MinWidth="100" >
-                    <ComboBox VerticalAlignment="Center" VerticalContentAlignment="Center"  Name="DataSourceComboBox" Margin="2" Padding="2" ItemsSource="{Binding}" DisplayMemberPath="DataSource.Name" Background="White" MinWidth="100" />
+                    <ComboBox VerticalAlignment="Center" VerticalContentAlignment="Center"  Name="DataSourceComboBox" Margin="2" Padding="2" ItemsSource="{Binding}" DisplayMemberPath="Table.TableName" Background="White" MinWidth="100" />
                 </GroupBox>
                 <GroupBox DockPanel.Dock="Left" VerticalAlignment="Center" Header="Origine" Margin="2" Padding="2" MinWidth="100" >
                     <DockPanel>
