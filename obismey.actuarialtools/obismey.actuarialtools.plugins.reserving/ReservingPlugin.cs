@@ -67,14 +67,19 @@ namespace obismey.actuarialtools.plugins.reserving
 
         private void NewDataSource()
         {
-            var name = InputBox("Enter the name of the data source", System.DateTime.Now.ToString().Replace(":", "").Replace("/", ""));
+            var name = InputBox(
+                "Enter the name of the data source",
+                "Data-" + System.DateTime.Now.ToString().Replace(":", "").Replace("/", "").Replace(" ",""));
 
             if (string.IsNullOrEmpty(name)) return;
-            
-            var newdatasourceProjectTreeItem = new ProjectTreeItem() { Caption = name };
-            newdatasourceProjectTreeItem.ContextMenu.Add(new UICommand("Rename Data Source", () => RenameDataSource(newdatasourceProjectTreeItem)));
-           
+
             var page = new obismey.actuarialtools.plugins.reserving.views.DataImportPage();
+            page.SetDataSourceName(name);
+            var newdatasourceProjectTreeItem = new ProjectTreeItem() { Caption = name };
+            newdatasourceProjectTreeItem.ContextMenu.Add(
+                new UICommand("Rename Data Source",
+                    () => RenameDataSource(newdatasourceProjectTreeItem, (v) => page.SetDataSourceName(v))));
+           
 
             var pageuri = new Uri(@"pack://application:,,,/obismey.actuarialtools.plugins.reserving;component/views/DataImportPage.xaml");
 
@@ -96,13 +101,17 @@ namespace obismey.actuarialtools.plugins.reserving
             this.triangleProjectTreeItem.Children.Add(newdatasourceProjectTreeItem);
 
         }
-        private void RenameDataSource(ProjectTreeItem newdatasourceProjectTreeItem)
+        private void RenameDataSource(ProjectTreeItem newdatasourceProjectTreeItem, Action<string> extraAction = null)
         {
             var name = InputBox("Enter the name of the data source", newdatasourceProjectTreeItem.Caption);
 
             if (string.IsNullOrEmpty(name)) return;
 
             newdatasourceProjectTreeItem.Caption = name;
+
+            if (extraAction == null) return;
+
+            extraAction(name);
 
         }
         private string InputBox(string message, string defaultvalue = "")

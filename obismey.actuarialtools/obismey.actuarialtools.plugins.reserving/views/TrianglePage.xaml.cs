@@ -78,7 +78,7 @@ namespace obismey.actuarialtools.plugins.reserving.views
                             group r by new { Surv = (int)r.Surv, Deroul=(int)r.Deroul } into grouping
                             select new { 
                                 Key = grouping.Key, 
-                                Reglement = grouping.Sum((elt)=> elt.Reglement) 
+                                Reglement = grouping.Sum((elt)=> elt.Reglement)
                             }).ToList();
 
 
@@ -86,13 +86,31 @@ namespace obismey.actuarialtools.plugins.reserving.views
                 unvell.ReoGrid.ReoGridRange.EntireRange,
                 unvell.ReoGrid.CellElementFlag.All);
 
+            this._SheetControl.CurrentWorksheet.RowCount = size + 3;
+            this._SheetControl.CurrentWorksheet.ColumnCount = size + 3;
+ 
 
             if (finaldata.Count == 0) return;
 
+            var arraydata = new double[size, size];
+
             foreach (var elt in finaldata)
             {
-                this._SheetControl.CurrentWorksheet[origin - elt.Key.Surv + 1, elt.Key.Deroul + 1] = elt.Reglement;
+                arraydata[elt.Key.Surv, elt.Key.Deroul] = elt.Reglement;
             }
+
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j <= i; j++)
+                {
+                    this._SheetControl.CurrentWorksheet[size - i + 1, j + 1] = arraydata[i, j];
+                }
+            }
+
+            //foreach (var elt in finaldata)
+            //{
+            //    this._SheetControl.CurrentWorksheet[origin - elt.Key.Surv + 1, elt.Key.Deroul + 1] = elt.Reglement;
+            //}
 
             this._SheetControl.CurrentWorksheet.SetRangeDataFormat(
                 unvell.ReoGrid.ReoGridRange.EntireRange,

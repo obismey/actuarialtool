@@ -36,6 +36,7 @@ namespace obismey.actuarialtools.plugins.reserving.views
         private DataModel CurrentModel;
         private System.Data.DataTable CurrentTable;
         private models.DataSourceImpl DataSource;
+        private string DataSourceName;
 
 
         private void SourceTypeRadioButton_Checked(object sender, RoutedEventArgs e)
@@ -236,8 +237,8 @@ namespace obismey.actuarialtools.plugins.reserving.views
 
                 this.FileTextBlock.Text = opd.FileName;
 
-                this.DataSource = this.DataSource== null ?
-                    new obismey.actuarialtools.plugins.reserving.models.DataSourceImpl() :
+                this.DataSource = this.DataSource == null ?
+                    new obismey.actuarialtools.plugins.reserving.models.DataSourceImpl() { Name= DataSourceName } :
                     this.DataSource;
 
                 this.DataSource.Model = this.CurrentModel;
@@ -250,6 +251,16 @@ namespace obismey.actuarialtools.plugins.reserving.views
                     ReservingPlugin.Instance.CurrentProject.ObservableDataSources.Add(this.DataSource);
                 }
 
+            }
+        }
+
+        internal void SetDataSourceName(string name)
+        {
+            this.DataSourceName = name;
+
+            if (this.DataSource != null)
+            {
+                this.DataSource.Name = name;
             }
         }
     }
