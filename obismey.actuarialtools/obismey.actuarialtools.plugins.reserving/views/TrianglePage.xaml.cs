@@ -103,7 +103,7 @@ namespace obismey.actuarialtools.plugins.reserving.views
             {
                 for (int j = 0; j <= i; j++)
                 {
-                    this._SheetControl.CurrentWorksheet[size - i + 1, j + 1] = arraydata[i, j];
+                    this._SheetControl.CurrentWorksheet[size - i , j + 1] = arraydata[i, j];
                 }
             }
 
