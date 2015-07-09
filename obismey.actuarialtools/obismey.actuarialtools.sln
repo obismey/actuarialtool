@@ -11,12 +11,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "obismey.actuarialtools.desk
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{203F6DE2-C45D-4F47-9046-6058EA0E380D}"
 	ProjectSection(SolutionItems) = preProject
+		Docs\ACT2040-8.pdf = Docs\ACT2040-8.pdf
 		Docs\ChainLadder_Markus_20090724.pdf = Docs\ChainLadder_Markus_20090724.pdf
+		Docs\HCOMPAIN.pdf = Docs\HCOMPAIN.pdf
+		Docs\hspring07-005bk.pdf = Docs\hspring07-005bk.pdf
+		Docs\img1.jpg = Docs\img1.jpg
+		Docs\img2.jpg = Docs\img2.jpg
+		Docs\Mémoire - JC - RPE.pdf = Docs\Mémoire - JC - RPE.pdf
 		Docs\Plan_Action.xlsm = Docs\Plan_Action.xlsm
 		Docs\RChainLadder-01.pdf = Docs\RChainLadder-01.pdf
 		Docs\RChainLadder-02.pdf = Docs\RChainLadder-02.pdf
 		Docs\StandardAnalysisView.xaml = Docs\StandardAnalysisView.xaml
 		Docs\StandardAnalysisView.xaml.vb = Docs\StandardAnalysisView.xaml.vb
+		Docs\strasbourg.pdf = Docs\strasbourg.pdf
+		Docs\Triangle.png = Docs\Triangle.png
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{4C7ADA79-510C-4252-A774-98F3ABFED46D}"
