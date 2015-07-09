@@ -13,6 +13,8 @@ namespace obismey.actuarialtools.desktop.viewmodels
         internal static EventHandler Created;
 
         private object _NavigationSource;
+        private UICommand NavPrev;
+        private UICommand NavNext;
         public MainWindow()
         {
             if (Instance != null) return;
@@ -34,14 +36,16 @@ namespace obismey.actuarialtools.desktop.viewmodels
                 new UICommand()
                 {
                     Icon = @"pack://application:,,,/obismey.actuarialtools.desktop;component/resources/icones/left34.png",
-                    Method = () => CoreUiCommandClick("NavPrev")
+                    Method = () => CoreUiCommandClick("NavPrev"),
+                    IsEnabled =false
                 });
 
             this.ToolBarItems.Add(
               new UICommand()
               {
                   Icon = @"pack://application:,,,/obismey.actuarialtools.desktop;component/resources/icones/right32.png",
-                  Method = () => CoreUiCommandClick("NavPrev")
+                  Method = () => CoreUiCommandClick("NavNext"),
+                  IsEnabled=false 
               });
 
             this.ToolBarItems.Add(
@@ -72,6 +76,9 @@ namespace obismey.actuarialtools.desktop.viewmodels
                   Method = () => CoreUiCommandClick("Help")
               });
 
+            this.NavPrev = this.ToolBarItems[1];
+            this.NavNext = this.ToolBarItems[2];
+
             Instance = this;
 
             if (Created != null)
@@ -82,7 +89,31 @@ namespace obismey.actuarialtools.desktop.viewmodels
 
         private void CoreUiCommandClick(string key)
         {
-            this.NavigationSource = new Uri("https://news.google.fr/");
+            if (key == "NavPrev")
+            {
+                var mainwindow = App.Current.MainWindow as obismey.actuarialtools.desktop.views.MainWindow;
+
+                if (mainwindow.MainFrame.CanGoBack )
+                {
+                    mainwindow.MainFrame.GoBack();
+
+                    this.NavPrev.IsEnabled = mainwindow.MainFrame.CanGoBack;
+                    this.NavNext.IsEnabled = mainwindow.MainFrame.CanGoForward;
+
+                }
+            }
+            if (key == "NavNext")
+            {
+                var mainwindow = App.Current.MainWindow as obismey.actuarialtools.desktop.views.MainWindow;
+
+                if (mainwindow.MainFrame.CanGoForward)
+                {
+                    mainwindow.MainFrame.GoForward();
+
+                    this.NavPrev.IsEnabled = mainwindow.MainFrame.CanGoBack;
+                    this.NavNext.IsEnabled = mainwindow.MainFrame.CanGoForward;
+                }
+            }
         }
 
         /// <summary>
@@ -134,7 +165,8 @@ namespace obismey.actuarialtools.desktop.viewmodels
             {
                 mainwindow.MainFrame.Navigate(dataOrUri);
             }
-
+            this.NavPrev.IsEnabled = mainwindow.MainFrame.CanGoBack;
+            this.NavNext.IsEnabled = mainwindow.MainFrame.CanGoForward;
             return true;
         }
 

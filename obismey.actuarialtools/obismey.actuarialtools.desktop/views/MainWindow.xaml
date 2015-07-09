@@ -30,7 +30,7 @@
             </DockPanel>
         </Grid>
         <Grid Grid.Column="2" Grid.Row="2">
-            <Frame Name="MainFrame" /><!--Source="{Binding NavigationSource}"-->
+            <Frame Name="MainFrame" NavigationUIVisibility="Hidden" /><!--Source="{Binding NavigationSource}"-->
         </Grid>
         <Grid Grid.ColumnSpan="3">
             <ListBox BorderThickness="0" Background="LightGray" ItemsSource="{Binding ToolBarItems}" >
