@@ -45,6 +45,8 @@ namespace obismey.actuarialtools.plugins.reserving.views
             RootGrid.Children.Add(this._SheetControl);
 
             this.DataSourceComboBox.ItemsSource = ReservingPlugin.Instance.CurrentProject.ObservableDataSources;
+
+
         }
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
@@ -59,8 +61,17 @@ namespace obismey.actuarialtools.plugins.reserving.views
 
             if (survenance == null || deroulement == null || sinistre == null) return;
 
-            var origin = 19;
+            var origin = 19  ;
             var size = 20;
+
+            try
+            {
+                origin = int.Parse(OriginTextBox.Text);
+                size = int.Parse(SizeTextBox.Text);
+            }
+            catch (Exception)
+            {               
+            }
 
             var qdata = from r in datasource.Table.Rows.Cast<System.Data.DataRow>()
                         where !r.IsNull(survenance) && !r.IsNull(deroulement)
@@ -98,7 +109,13 @@ namespace obismey.actuarialtools.plugins.reserving.views
             {
                 arraydata[elt.Key.Surv, elt.Key.Deroul] = elt.Reglement;
             }
-
+            for (int i = 1; i < size; i++)
+            {
+                for (int j = 1; j <= i; j++)
+                {
+                    arraydata[i, j] = arraydata[i, j] + arraydata[i, j-1];
+                }
+            }
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j <= i; j++)
@@ -116,6 +133,11 @@ namespace obismey.actuarialtools.plugins.reserving.views
                 unvell.ReoGrid.ReoGridRange.EntireRange,
                 unvell.ReoGrid.DataFormat.CellDataFormatFlag.Number,
                 new unvell.ReoGrid.DataFormat.NumberDataFormatter.NumberFormatArgs() {  UseSeparator= true, DecimalPlaces=0});
+        }
+
+        private void DataSourceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+             
         }
     }
 }
