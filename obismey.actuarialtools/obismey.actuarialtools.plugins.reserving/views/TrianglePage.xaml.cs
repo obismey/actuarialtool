@@ -133,6 +133,8 @@ namespace obismey.actuarialtools.plugins.reserving.views
                 unvell.ReoGrid.ReoGridRange.EntireRange,
                 unvell.ReoGrid.DataFormat.CellDataFormatFlag.Number,
                 new unvell.ReoGrid.DataFormat.NumberDataFormatter.NumberFormatArgs() {  UseSeparator= true, DecimalPlaces=0});
+
+            this._SheetControl.CurrentWorksheet.SetRangeBorders(1, 1, size, size, unvell.ReoGrid.BorderPositions.Outside, unvell.ReoGrid.RangeBorderStyle.BlackSolid);
         }
 
         private void DataSourceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

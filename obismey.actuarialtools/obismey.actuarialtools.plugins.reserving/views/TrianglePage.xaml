@@ -15,49 +15,51 @@
 
         <DockPanel>
             <Button Name="UpdateButton" Content="Mettre à jour" DockPanel.Dock="Right" Background="White" VerticalAlignment="Center" Margin="2" Padding="2,4" Click="UpdateButton_Click"/>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <GroupBox DockPanel.Dock="Left" VerticalAlignment="Center" Header="Source de données" Margin="2" Padding="2" MinWidth="100" >
+                        <ComboBox VerticalAlignment="Center" VerticalContentAlignment="Center"  Name="DataSourceComboBox" Margin="2" Padding="2" ItemsSource="{Binding}" DisplayMemberPath="Name" Background="White" MinWidth="100" SelectionChanged="DataSourceComboBox_SelectionChanged" />
+                    </GroupBox>
+                    <GroupBox DockPanel.Dock="Left" VerticalAlignment="Center" Header="Origine" Margin="2" Padding="2" MinWidth="100" >
+                        <DockPanel>
+                            <CheckBox VerticalAlignment="Center" VerticalContentAlignment="Center"  Name="AccumulateOriginComboBox" Margin="2" Padding="2" Background="White" />
+                            <!--<ComboBox VerticalAlignment="Center" VerticalContentAlignment="Center"  Name="OriginComboBox" Margin="2" Padding="2" ItemsSource="{Binding}" DisplayMemberPath="DataSource.Name" Background="White" MinWidth="100" />-->
+                            <TextBox VerticalAlignment="Center" VerticalContentAlignment="Center"  Name="OriginTextBox" Margin="2" Padding="2" BorderBrush="Black" Background="White" MinWidth="100" />
 
-            <StackPanel Orientation="Horizontal">
-                <GroupBox DockPanel.Dock="Left" VerticalAlignment="Center" Header="Source de données" Margin="2" Padding="2" MinWidth="100" >
-                    <ComboBox VerticalAlignment="Center" VerticalContentAlignment="Center"  Name="DataSourceComboBox" Margin="2" Padding="2" ItemsSource="{Binding}" DisplayMemberPath="Name" Background="White" MinWidth="100" SelectionChanged="DataSourceComboBox_SelectionChanged" />
-                </GroupBox>
-                <GroupBox DockPanel.Dock="Left" VerticalAlignment="Center" Header="Origine" Margin="2" Padding="2" MinWidth="100" >
-                    <DockPanel>
-                        <CheckBox VerticalAlignment="Center" VerticalContentAlignment="Center"  Name="AccumulateOriginComboBox" Margin="2" Padding="2" Background="White" />
-                        <!--<ComboBox VerticalAlignment="Center" VerticalContentAlignment="Center"  Name="OriginComboBox" Margin="2" Padding="2" ItemsSource="{Binding}" DisplayMemberPath="DataSource.Name" Background="White" MinWidth="100" />-->
-                        <TextBox VerticalAlignment="Center" VerticalContentAlignment="Center"  Name="OriginTextBox" Margin="2" Padding="2" BorderBrush="Black" Background="White" MinWidth="100" />
+                        </DockPanel>
+                    </GroupBox>
+                    <GroupBox DockPanel.Dock="Left" VerticalAlignment="Center" Header="Taille" Margin="2" Padding="2" MinWidth="100" >
+                        <DockPanel>
+                            <!--<ComboBox VerticalAlignment="Center" VerticalContentAlignment="Center"  Name="SizeComboBox" Margin="2" Padding="2" ItemsSource="{Binding}" DisplayMemberPath="DataSource.Name" Background="White" MinWidth="100" />-->
+                            <TextBox VerticalAlignment="Center" VerticalContentAlignment="Center"  Name="SizeTextBox" Margin="2" Padding="2" BorderBrush="Black" Background="White" MinWidth="100" />
+                            <ComboBox VerticalAlignment="Center" VerticalContentAlignment="Center"  Name="IntervallSizeComboBox" Margin="2" Padding="2" ItemsSource="{Binding}" DisplayMemberPath="DataSource.Name" Background="White" MinWidth="100" />
+                        </DockPanel>
+                    </GroupBox>
+                </StackPanel>
+                <Rectangle Height="1" Margin="1" Fill="Black"/>
+                <ItemsControl  VerticalAlignment="Center" VerticalContentAlignment="Center"   Margin="2" Padding="2" >
 
-                    </DockPanel>
-                </GroupBox>
-                <GroupBox DockPanel.Dock="Left" VerticalAlignment="Center" Header="Taille" Margin="2" Padding="2" MinWidth="100" >
-                    <DockPanel>
-                        <!--<ComboBox VerticalAlignment="Center" VerticalContentAlignment="Center"  Name="SizeComboBox" Margin="2" Padding="2" ItemsSource="{Binding}" DisplayMemberPath="DataSource.Name" Background="White" MinWidth="100" />-->
-                        <TextBox VerticalAlignment="Center" VerticalContentAlignment="Center"  Name="SizeTextBox" Margin="2" Padding="2" BorderBrush="Black" Background="White" MinWidth="100" />
-                        <ComboBox VerticalAlignment="Center" VerticalContentAlignment="Center"  Name="IntervallSizeComboBox" Margin="2" Padding="2" ItemsSource="{Binding}" DisplayMemberPath="DataSource.Name" Background="White" MinWidth="100" />
-                    </DockPanel>
-                </GroupBox>
+                    <ItemsControl.ItemTemplate >
+                        <DataTemplate>
+                            <GroupBox  Header="{Binding Caption}" Margin="2" Padding="2" MinWidth="100" >
+                                <ComboBox Margin="2" Padding="2" ItemsSource="{Binding}" Background="White">
+                                    <ComboBox.ItemContainerStyle>
+                                        <Style TargetType="ComboBoxItem">
+                                            <Setter Property="IsSelected" Value="{Binding Selected}" />
+                                        </Style>
+                                    </ComboBox.ItemContainerStyle>
+                                </ComboBox>
+                            </GroupBox>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate >
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
             </StackPanel>
-            <ItemsControl  VerticalAlignment="Center" VerticalContentAlignment="Center"   Margin="2" Padding="2" ItemsSource="{Binding Path=SelectedItem, ElementName=DataSourceComboBox}" >
-
-                <ItemsControl.ItemTemplate >
-                    <DataTemplate>
-                        <GroupBox  Header="{Binding Caption}" Margin="2" Padding="2" MinWidth="100" >
-                            <ComboBox Margin="2" Padding="2" ItemsSource="{Binding}" Background="White">
-                                <ComboBox.ItemContainerStyle>
-                                    <Style TargetType="ComboBoxItem">
-                                        <Setter Property="IsSelected" Value="{Binding Selected}" />
-                                    </Style>
-                                </ComboBox.ItemContainerStyle>
-                            </ComboBox>
-                        </GroupBox>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate >
-                        <StackPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
 
         </DockPanel>
 

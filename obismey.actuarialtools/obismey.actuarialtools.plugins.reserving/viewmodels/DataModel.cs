@@ -33,7 +33,26 @@ namespace obismey.actuarialtools.plugins.reserving.viewmodels
 
         public static string[] KnownUsages
         {
-            get { return new string[] { "(Aucun)", "Segmentation", "Line Of Business", "Categorie Ministerielle", "Garantie", "Survenance", "Declaration", "Deroulement", "Reglement", "Prime", "Sinistre", "Provision" }; }
+            get
+            {
+                return new string[] 
+                {
+                "(Aucun)",
+                "Segmentation", 
+                "Line Of Business",
+                "Categorie Ministerielle",
+                "Garantie", 
+                "Survenance", 
+                "Declaration", 
+                "Deroulement", 
+                "Reglement",
+                "Prime",
+                "Sinistre",
+                "Provision",
+                "Nombre de Sinistres",
+                "Charge de Sinistres"
+                };
+            }
         }
 
         internal void NotifySourceColumnsChange()
