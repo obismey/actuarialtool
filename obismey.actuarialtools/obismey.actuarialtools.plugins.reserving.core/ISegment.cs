@@ -26,8 +26,9 @@ namespace obismey.actuarialtools.plugins.reserving.core
 
     public interface ISegementProvider
     {
-        IEnumerable<ISegment> CreateSegments(ITable table, params string[] fields);
-        IEnumerable<ISegment> CreateSegments(IReadOnlyTable table, params string[] fields);
+        //IEnumerable<ISegment> CreateSegments(ITable table, params string[] fields);
+        //IEnumerable<ISegment> CreateSegments(IReadOnlyTable table, params string[] fields);
+        IEnumerable<ISegment> CreateSegments(System.Data.DataView table, params string[] fields);
     }
 }
  
